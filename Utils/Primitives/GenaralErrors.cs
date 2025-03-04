@@ -1,8 +1,12 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Primitives;
 
 /// <summary>
 ///     Общие ошибки
 /// </summary>
+/// 
+[ExcludeFromCodeCoverage]
 public static class GeneralErrors
 {
     public static Error NotFound(long? id = null)

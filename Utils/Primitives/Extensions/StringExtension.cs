@@ -1,5 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Primitives.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class StringExtension
 {
     public static T ToEnum<T>(this string value)
