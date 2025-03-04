@@ -54,7 +54,7 @@ public class LocationShould
     }
     
     [Fact]
-    public void ReturnZeroDistanceWhenLocationAreSame()
+    public void ReturnZeroDistanceWhenLocationAreEqual()
     {
         var firstLocation = Location.Create(5, 5).Value;
         var secondLocation = Location.Create(5, 5).Value;
@@ -66,7 +66,7 @@ public class LocationShould
     }
     
     [Fact]
-    public void ReturnCorrectDistanceWhenLocationAreDifferent()
+    public void ReturnCorrectDistanceWhenLocationAreNotEqual()
     {
         var firstLocation = Location.Create(1, 1).Value;
         var secondLocation = Location.Create(10, 10).Value;
