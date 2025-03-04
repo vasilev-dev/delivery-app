@@ -25,9 +25,3 @@ jobs:
       run: |
         dotnet test --collect:"XPlat Code Coverage" --logger trx
         reportgenerator -reports:./**/coverage.cobertura.xml -targetdir:./CoverageReport -reporttypes:Html
-
-    - name: Upload coverage report
-      uses: actions/upload-artifact@v3
-      with:
-        name: coverage-report
-        path: ./CoverageReport
