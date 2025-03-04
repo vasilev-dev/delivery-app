@@ -3,7 +3,6 @@ using CSharpFunctionalExtensions;
 
 namespace Primitives;
 
-[ExcludeFromCodeCoverage]
 public abstract class Aggregate<TId> : Entity<TId>, IAggregateRoot where TId : IComparable<TId>
 {
     private readonly List<DomainEvent> _domainEvents = new();
