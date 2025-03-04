@@ -1,10 +1,14 @@
-﻿# OpenApi
+﻿# Delivery App
+
+[![Coverage Status](https://coveralls.io/repos/github/vasilev-dev/delivery-app/badge.svg?branch=main)](https://coveralls.io/github/vasilev-dev/delivery-app?branch=main)
+
+## OpenApi
 Вызывать из папки DeliveryApp.Api/Adapters/Http/Contract
 ```
 cd DeliveryApp.Api/Adapters/Http/Contract/
 openapi-generator generate -i https://gitlab.com/microarch-ru/microservices/dotnet/system-design/-/raw/main/services/delivery/contracts/openapi.yml -g aspnetcore -o . --package-name OpenApi --additional-properties classModifier=abstract --additional-properties operationResultTask=true
 ```
-# БД
+## БД
 ```
 dotnet tool install --global dotnet-ef
 dotnet tool update --global dotnet-ef
@@ -12,13 +16,13 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 ```
 [Подробнее про dotnet cli](https://learn.microsoft.com/ru-ru/ef/core/cli/dotnet)
 
-# Миграции
+## Миграции
 ```
 dotnet ef migrations add Init --startup-project ./DeliveryApp.Api --project ./DeliveryApp.Infrastructure --output-dir ./Adapters/Postgres/Migrations
 dotnet ef database update --startup-project ./DeliveryApp.Api --connection "Server=localhost;Port=5432;User Id=username;Password=secret;Database=delivery;"
 ```
 
-# Запросы к БД
+## Запросы к БД
 ```
 -- Выборки
 SELECT * FROM public.couriers;
