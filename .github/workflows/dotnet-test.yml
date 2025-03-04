@@ -20,6 +20,9 @@ jobs:
 
     - name: Restore dependencies
       run: dotnet restore
+      
+    - name: Install ReportGenerator
+      run: dotnet tool install -g dotnet-reportgenerator-globaltool
 
     - name: Run tests with coverage
       run: |
