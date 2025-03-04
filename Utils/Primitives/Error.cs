@@ -3,6 +3,7 @@ using CSharpFunctionalExtensions;
 
 namespace Primitives;
 
+[ExcludeFromCodeCoverage]
 public sealed class Error : ValueObject
 {
     private const string Separator = "||";
