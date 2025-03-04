@@ -26,5 +26,8 @@ jobs:
 
     - name: Run tests with coverage
       run: |
-        dotnet test --collect:"XPlat Code Coverage" --logger trx
+        dotnet test --collect:"XPlat Code Coverage" --logger trx --configuration Release
+
+    - name: Generate coverage report
+      run: |
         reportgenerator -reports:./**/coverage.cobertura.xml -targetdir:./CoverageReport -reporttypes:Html
