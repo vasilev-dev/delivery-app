@@ -1,5 +1,6 @@
 ﻿# Delivery App
 
+[![.NET Test and Coverage](https://github.com/vasilev-dev/delivery-app/actions/workflows/dotnet-test.yml/badge.svg)](https://github.com/vasilev-dev/delivery-app/actions/workflows/dotnet-test.yml)
 [![Coverage Status](https://coveralls.io/repos/github/vasilev-dev/delivery-app/badge.svg?branch=main)](https://coveralls.io/github/vasilev-dev/delivery-app?branch=main)
 
 ## OpenApi
