@@ -7,6 +7,9 @@ public class Location : ValueObject
 {
     public int X { get; }
     public int Y { get; }
+
+    private const int MinCoordinate = 1;
+    private const int MaxCoordinate = 10;
     
     private Location() { }
 
@@ -18,8 +21,8 @@ public class Location : ValueObject
 
     public static Result<Location, Error> Create(int x, int y)
     {
-        if (x is < 1 or > 10) return GeneralErrors.ValueIsInvalid(nameof(x));
-        if (y is < 1 or > 10) return GeneralErrors.ValueIsInvalid(nameof(y));
+        if (x is < MinCoordinate or > MaxCoordinate) return GeneralErrors.ValueIsInvalid(nameof(x));
+        if (y is < MinCoordinate or > MaxCoordinate) return GeneralErrors.ValueIsInvalid(nameof(y));
 
         return new Location(x, y);
     }
@@ -28,8 +31,8 @@ public class Location : ValueObject
     {
         var random = new Random();
 
-        var x = random.Next(1, 11);
-        var y = random.Next(1, 11);
+        var x = random.Next(MinCoordinate, MaxCoordinate + 1);
+        var y = random.Next(MinCoordinate, MaxCoordinate + 1);
 
         return new Location(x, y);
     }
