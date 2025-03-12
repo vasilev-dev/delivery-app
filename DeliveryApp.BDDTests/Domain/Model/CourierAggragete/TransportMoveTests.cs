@@ -1,10 +1,10 @@
-﻿using LightBDD.Framework.Scenarios;
-using LightBDD.XUnit2;
-using DeliveryApp.Core.Domain.Model.CourierAggregate;
+﻿using DeliveryApp.Core.Domain.Model.CourierAggregate;
 using DeliveryApp.Core.Domain.Model.SharedKernel;
 using FluentAssertions;
+using LightBDD.Framework.Scenarios;
+using LightBDD.XUnit2;
 
-namespace DeliveryApp.BDDTests;
+namespace DeliveryApp.BDDTests.Domain.Model.CourierAggragete;
 
 public class TransportMoveTests : FeatureFixture
 {
