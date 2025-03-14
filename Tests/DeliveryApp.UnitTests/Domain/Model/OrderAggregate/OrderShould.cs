@@ -40,6 +40,7 @@ public class OrderShould
         actual.Value.Id.Should().Be(orderId);
         actual.Value.Location.Should().Be(location);
         actual.Value.Status.Should().Be(OrderStatus.Created);
+        actual.Value.CourierId.Should().BeNull();
     }
 
     [Fact]
@@ -99,6 +100,7 @@ public class OrderShould
         
         actual.IsSuccess.Should().BeTrue();
         order.Status.Should().Be(OrderStatus.Assigned);
+        order.CourierId.Should().Be(courier.Id);
     }
 
     [Fact]
