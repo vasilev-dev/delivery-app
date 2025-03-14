@@ -14,6 +14,7 @@ public class Order : Aggregate<Guid>
     private Order(Guid orderId, Location location) : base(orderId)
     {
         Location = location;
+        Status = OrderStatus.Created;
     }
 
     public static Result<Order, Error> Create(Guid orderId, Location location)
