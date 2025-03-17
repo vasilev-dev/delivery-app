@@ -132,4 +132,28 @@ public class CourierShould
         actual.IsSuccess.Should().BeTrue();
         courier.Location.Should().Be(destination);
     }
+
+    [Fact]
+    public void ReturnErrorWhenDestinationIsNull()
+    {
+        var location = Location.CreateRandom();
+        var courier = Courier.Create("Ivan", "Tesla", 3, location).Value;
+
+        var actual = courier.CalculateTimeToLocation(null);
+        
+        actual.IsSuccess.Should().BeFalse();
+    }
+    
+    [Fact]
+    public void ReturnTimeToLocationWhenDestinationIsNotNull()
+    {
+        var location = Location.Create(1, 1).Value;
+        var courier = Courier.Create("Ivan", "Tesla", 2, location).Value;
+        var destination = Location.Create(6, 1).Value;
+
+        var actual = courier.CalculateTimeToLocation(destination);
+        
+        actual.IsSuccess.Should().BeTrue();
+        actual.Value.Should().Be(3);
+    }
 }

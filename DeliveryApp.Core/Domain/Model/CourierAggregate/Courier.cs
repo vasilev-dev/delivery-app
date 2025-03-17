@@ -61,6 +61,19 @@ public class Courier : Aggregate<Guid>
         
         return UnitResult.Success<Error>();
     }
+
+    public Result<int, Error> CalculateTimeToLocation(Location destination)
+    {
+        if (destination is null) return GeneralErrors.ValueIsRequired(nameof(destination));
+
+        var (_, isFailure, distance, error) = Location.DistanceTo(destination);
+
+        if (isFailure) return error;
+
+        var time = (double)distance / Transport.Speed;
+
+        return (int)Math.Ceiling(time);
+    }
 }
 
 public static class Errors
