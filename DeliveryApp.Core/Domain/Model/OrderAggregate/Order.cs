@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using CSharpFunctionalExtensions;
 using DeliveryApp.Core.Domain.Model.CourierAggregate;
 using DeliveryApp.Core.Domain.Model.SharedKernel;
@@ -10,6 +11,9 @@ public class Order : Aggregate<Guid>
     public Guid? CourierId { get; private set; }
     public OrderStatus Status { get; private set; }
     public Location Location { get; private set; }
+    
+    [ExcludeFromCodeCoverage]
+    private Order() { }
 
     private Order(Guid orderId, Location location) : base(orderId)
     {

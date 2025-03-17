@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using CSharpFunctionalExtensions;
 using DeliveryApp.Core.Domain.Model.SharedKernel;
 using Primitives;
@@ -10,6 +11,9 @@ public class Courier : Aggregate<Guid>
     public Transport Transport { get; private set; }
     public Location Location { get; private set; }
     public CourierStatus Status { get; private set; }
+    
+    [ExcludeFromCodeCoverage]
+    private Courier() { }
 
     private Courier(string name, Transport transport, Location location) : base(Guid.NewGuid())
     {
