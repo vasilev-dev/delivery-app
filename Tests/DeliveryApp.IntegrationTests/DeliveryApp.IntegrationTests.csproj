@@ -4,15 +4,14 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
-
         <IsPackable>false</IsPackable>
-
         <LangVersion>default</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Dapper" Version="2.1.66" />
         <PackageReference Include="FluentAssertions" Version="8.1.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.3" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
         <PackageReference Include="NSubstitute" Version="5.3.0" />
         <PackageReference Include="Testcontainers" Version="4.2.0" />
@@ -35,6 +34,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\DeliveryApp.Api\DeliveryApp.Api.csproj" />
         <ProjectReference Include="..\..\DeliveryApp.Infrastructure\DeliveryApp.Infrastructure.csproj"/>
     </ItemGroup>
 

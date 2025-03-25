@@ -13,6 +13,7 @@
     <ItemGroup>
         <PackageReference Include="Confluent.Kafka" Version="2.8.0" />
         <PackageReference Include="Dapper" Version="2.1.66" />
+        <PackageReference Include="EFCore.NamingConventions" Version="9.0.0" />
         <PackageReference Include="Google.Protobuf" Version="3.29.3" />
         <PackageReference Include="Grpc.Tools" Version="2.69.0">
             <PrivateAssets>all</PrivateAssets>
