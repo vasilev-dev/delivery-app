@@ -1,4 +1,6 @@
+using System.Reflection;
 using DeliveryApp.Api;
+using DeliveryApp.Core.Application.UseCases.Queries.GetBusyCouriers;
 using DeliveryApp.Core.Domain.Model.CourierAggregate;
 using DeliveryApp.Core.Domain.Services;
 using DeliveryApp.Core.Ports;
@@ -30,11 +32,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString, sqlOptions => sqlOptions.MigrationsAssembly(typeof(AppDbContext).Assembly));
     options.UseSnakeCaseNamingConvention();
 });
+builder.Services.AddSingleton<IDbConnectionFactory>(_ => new NpgsqlDbConnectionFactory(connectionString));
 
 builder.Services.AddSingleton<IDispatchService, DispatchService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICourierRepository, CourierRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
+    typeof(Program).Assembly,
+    typeof(GetBusyCouriersHandler).Assembly
+));
 
 var app = builder.Build();
 

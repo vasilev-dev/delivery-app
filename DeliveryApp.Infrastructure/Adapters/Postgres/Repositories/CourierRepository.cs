@@ -19,6 +19,14 @@ public class CourierRepository(AppDbContext dbContext) : ICourierRepository
             .ToListAsync(cancellationToken);
     }
 
+    public async Task<List<Courier>> GetAllBusy(CancellationToken cancellationToken = default)
+    {
+        return await dbContext.Couriers
+            .Include(courier => courier.Transport)
+            .Where(courier => courier.Status == CourierStatus.Busy)
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task Add(Courier courier, CancellationToken cancellationToken = default)
     {
         await dbContext.Couriers.AddAsync(courier, cancellationToken);
