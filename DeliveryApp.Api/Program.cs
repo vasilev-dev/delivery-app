@@ -8,8 +8,10 @@ using DeliveryApp.Core.Application.UseCases.Queries.GetCouriers;
 using DeliveryApp.Core.Domain.Model.CourierAggregate;
 using DeliveryApp.Core.Domain.Services;
 using DeliveryApp.Core.Ports;
+using DeliveryApp.Infrastructure.Adapters.Grpc.GeoService;
 using DeliveryApp.Infrastructure.Adapters.Postgres;
 using DeliveryApp.Infrastructure.Adapters.Postgres.Repositories;
+using GeoApp.Api;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
@@ -106,6 +108,7 @@ builder.Services.AddQuartz(configure =>
 });
 builder.Services.AddQuartzHostedService();
 
+builder.Services.AddSingleton<IGeoClient, Client>();
 
 var app = builder.Build();
 
