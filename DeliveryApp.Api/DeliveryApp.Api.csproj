@@ -5,6 +5,7 @@
         <Nullable>disable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <LangVersion>default</LangVersion>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
     <PropertyGroup>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -53,5 +54,10 @@
         <_ContentIncludedByDefault Remove="Adapters\Http\Contract\src\DeliveryApp.Api.Adapters.Http.Contract.src.OpenApi\appsettings.json"/>
         <_ContentIncludedByDefault Remove="Adapters\Http\Contract\src\DeliveryApp.Api.Adapters.Http.Contract.src.OpenApi\Properties\launchSettings.json"/>
         <_ContentIncludedByDefault Remove="Adapters\Http\Contract\src\DeliveryApp.Api.Adapters.Http.Contract.src.OpenApi\wwwroot\openapi-original.json"/>
+        <_ContentIncludedByDefault Remove="Adapters\Http\Contracts\openapitools.json" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="Adapters\Http\Contract\.openapi-generator\FILES" />
+      <Content Include="Adapters\Http\Contract\.openapi-generator\VERSION" />
     </ItemGroup>
 </Project>

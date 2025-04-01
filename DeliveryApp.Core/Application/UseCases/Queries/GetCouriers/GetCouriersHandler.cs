@@ -1,14 +1,13 @@
 using Dapper;
-using DeliveryApp.Core.Domain.Model.CourierAggregate;
 using DeliveryApp.Core.Ports;
 using MediatR;
 
-namespace DeliveryApp.Core.Application.UseCases.Queries.GetBusyCouriers;
+namespace DeliveryApp.Core.Application.UseCases.Queries.GetCouriers;
 
-public sealed class GetBusyCouriersHandler(IDbConnectionFactory dbConnectionFactory)
-    : IRequestHandler<GetBusyCouriersQuery, GetBusyCouriersResult>
+public sealed class GetCouriersHandler(IDbConnectionFactory dbConnectionFactory)
+    : IRequestHandler<GetCouriersQuery, GetCouriersResult>
 {
-    public async Task<GetBusyCouriersResult> Handle(GetBusyCouriersQuery request, CancellationToken cancellationToken)
+    public async Task<GetCouriersResult> Handle(GetCouriersQuery request, CancellationToken cancellationToken)
     {
         var connection = await dbConnectionFactory.GetConnectionAsync(cancellationToken);
 
@@ -22,15 +21,14 @@ public sealed class GetBusyCouriersHandler(IDbConnectionFactory dbConnectionFact
                 transport_id
             from
                 couriers
-            where
-                status = @status
-            """,
-            new { status = CourierStatus.Busy.Value }
+            """
         );
+        
+        connection.Close();
 
         var couriers = result.Select(Map);
         
-        return new GetBusyCouriersResult(couriers);
+        return new GetCouriersResult(couriers);
     }
 
     private static Courier Map(dynamic result)

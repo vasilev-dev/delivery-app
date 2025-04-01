@@ -25,6 +25,8 @@ public sealed class GetUncompletedOrdersHandler(IDbConnectionFactory dbConnectio
             """, 
             new { status = OrderStatus.Completed.Value }
         );
+        
+        connection.Close();
 
         var orders = result.Select(Map);
         
