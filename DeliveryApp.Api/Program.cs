@@ -4,14 +4,13 @@ using DeliveryApp.Api.Adapters.BackgroundJobs;
 using DeliveryApp.Api.Adapters.Http.Contract.src.OpenApi.Filters;
 using DeliveryApp.Api.Adapters.Http.Contract.src.OpenApi.Formatters;
 using DeliveryApp.Api.Adapters.Http.Contract.src.OpenApi.OpenApi;
+using DeliveryApp.Api.Adapters.Kafka.BasketConfirmed;
 using DeliveryApp.Core.Application.UseCases.Queries.GetCouriers;
-using DeliveryApp.Core.Domain.Model.CourierAggregate;
 using DeliveryApp.Core.Domain.Services;
 using DeliveryApp.Core.Ports;
 using DeliveryApp.Infrastructure.Adapters.Grpc.GeoService;
 using DeliveryApp.Infrastructure.Adapters.Postgres;
 using DeliveryApp.Infrastructure.Adapters.Postgres.Repositories;
-using GeoApp.Api;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
@@ -85,6 +84,13 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<GeneratePathParamsValidationFilter>();
 });
 builder.Services.AddSwaggerGenNewtonsoftSupport();
+
+builder.Services.Configure<HostOptions>(options =>
+{
+    options.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.Ignore;
+    options.ShutdownTimeout = TimeSpan.FromSeconds(30);
+});
+builder.Services.AddHostedService<Consumer>();
 
 // CRON Jobs
 builder.Services.AddQuartz(configure =>
