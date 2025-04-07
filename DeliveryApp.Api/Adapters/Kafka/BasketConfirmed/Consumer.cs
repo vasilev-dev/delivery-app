@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using BasketConfirmed;
 using Confluent.Kafka;
@@ -10,6 +11,7 @@ using Error = Primitives.Error;
 
 namespace DeliveryApp.Api.Adapters.Kafka.BasketConfirmed;
 
+[ExcludeFromCodeCoverage]
 public class Consumer : BackgroundService
 {
     private readonly IServiceScopeFactory _serviceScopeFactory;
