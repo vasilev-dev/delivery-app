@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using Confluent.Kafka;
 using DeliveryApp.Core.Domain.Model.OrderAggregate.DomainEvents;
@@ -9,6 +10,7 @@ using DomainOrderStatus = DeliveryApp.Core.Domain.Model.OrderAggregate.OrderStat
 
 namespace DeliveryApp.Infrastructure.Adapters.Kafka.OrderStatusChanged;
 
+[ExcludeFromCodeCoverage]
 public class Producer(IOptions<Settings> settings, ILogger<Producer> logger) : IMessageBusProducer
 {
     private readonly string _topic = settings.Value.OrderStatusChangedTopic;
