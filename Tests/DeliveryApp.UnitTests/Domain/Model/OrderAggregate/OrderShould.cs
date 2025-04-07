@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using DeliveryApp.Core.Domain.Model.CourierAggregate;
 using DeliveryApp.Core.Domain.Model.OrderAggregate;
+using DeliveryApp.Core.Domain.Model.OrderAggregate.DomainEvents;
 using DeliveryApp.Core.Domain.Model.SharedKernel;
 using FluentAssertions;
 using Xunit;
@@ -41,6 +43,13 @@ public class OrderShould
         actual.Value.Location.Should().Be(location);
         actual.Value.Status.Should().Be(OrderStatus.Created);
         actual.Value.CourierId.Should().BeNull();
+        actual.Value.GetDomainEvents().Should().ContainSingle()
+            .Which.Should().BeOfType<OrderStatusChangedDomainEvent>()
+            .Which.Should().Satisfy<OrderStatusChangedDomainEvent>(e =>
+            {
+                e.OrderId.Should().Be(orderId);
+                e.Status.Should().Be(OrderStatus.Created);
+            });
     }
 
     [Fact]
@@ -101,6 +110,14 @@ public class OrderShould
         actual.IsSuccess.Should().BeTrue();
         order.Status.Should().Be(OrderStatus.Assigned);
         order.CourierId.Should().Be(courier.Id);
+        order.GetDomainEvents()
+            .OfType<OrderStatusChangedDomainEvent>()
+            .Should().ContainSingle(e => e.Status == OrderStatus.Assigned)
+            .Which.Should().Satisfy<OrderStatusChangedDomainEvent>(e =>
+            {
+                e.OrderId.Should().Be(orderId);
+                e.Status.Should().Be(OrderStatus.Assigned);
+            });
     }
 
     [Fact]
@@ -146,5 +163,13 @@ public class OrderShould
         
         actual.IsSuccess.Should().BeTrue();
         order.Status.Should().Be(OrderStatus.Completed);
+        order.GetDomainEvents()
+            .OfType<OrderStatusChangedDomainEvent>()
+            .Should().ContainSingle(e => e.Status == OrderStatus.Completed)
+            .Which.Should().Satisfy<OrderStatusChangedDomainEvent>(e =>
+            {
+                e.OrderId.Should().Be(orderId);
+                e.Status.Should().Be(OrderStatus.Completed);
+            });
     }
 }
