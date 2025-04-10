@@ -60,4 +60,7 @@
       <Content Include="Adapters\Http\Contract\.openapi-generator\FILES" />
       <Content Include="Adapters\Http\Contract\.openapi-generator\VERSION" />
     </ItemGroup>
+    <ItemGroup>
+      <Protobuf Include="Adapters\Kafka\BasketConfirmed\Contact.proto"/>
+    </ItemGroup>
 </Project>
