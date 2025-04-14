@@ -1,5 +1,7 @@
 using DeliveryApp.Infrastructure.Adapters.Postgres;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using NSubstitute;
 using Testcontainers.PostgreSql;
 using Xunit;
 
@@ -9,6 +11,7 @@ public abstract class BaseRepositoryTest : IAsyncLifetime
 {
     private PostgreSqlContainer _dbContainer;
     protected AppDbContext DbContext;
+    protected IMediator Mediator;
     
     public async Task InitializeAsync()
     {
@@ -30,6 +33,8 @@ public abstract class BaseRepositoryTest : IAsyncLifetime
         DbContext = new AppDbContext(options);
         
         await DbContext.Database.MigrateAsync();
+
+        Mediator = Substitute.For<IMediator>();
     }
 
     public async Task DisposeAsync()

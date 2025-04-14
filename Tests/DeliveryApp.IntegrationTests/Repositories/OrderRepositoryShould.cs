@@ -24,7 +24,7 @@ public class OrderRepositoryShould : BaseRepositoryTest
     public async Task ReturnOrderWhenItExists()
     {
         var orderRepository = new OrderRepository(DbContext);
-        var unitOfWork = new UnitOfWork(DbContext);
+        var unitOfWork = new UnitOfWork(DbContext, Mediator);
 
         var order = Order.Create(Guid.NewGuid(), Location.CreateRandom()).Value;
         await orderRepository.Add(order);
@@ -40,7 +40,7 @@ public class OrderRepositoryShould : BaseRepositoryTest
     {
         var orderRepository = new OrderRepository(DbContext);
         var courierRepository = new CourierRepository(DbContext);
-        var unitOfWork = new UnitOfWork(DbContext);
+        var unitOfWork = new UnitOfWork(DbContext, Mediator);
         
         var courier = Courier.Create("Ivan", "Tesla", 3, Location.CreateRandom()).Value;
         await courierRepository.Add(courier);
@@ -67,7 +67,7 @@ public class OrderRepositoryShould : BaseRepositoryTest
     public async Task ReturnCreatedOrdersIfItExists()
     {
         var orderRepository = new OrderRepository(DbContext);
-        var unitOfWork = new UnitOfWork(DbContext);
+        var unitOfWork = new UnitOfWork(DbContext, Mediator);
         
         var order = Order.Create(Guid.NewGuid(), Location.CreateRandom()).Value;
         await orderRepository.Add(order);
@@ -84,7 +84,7 @@ public class OrderRepositoryShould : BaseRepositoryTest
     public async Task ReturnEmptyCollectionWhenNoAnyAssignedOrders()
     {
         var orderRepository = new OrderRepository(DbContext);
-        var unitOfWork = new UnitOfWork(DbContext);
+        var unitOfWork = new UnitOfWork(DbContext, Mediator);
         
         var order = Order.Create(Guid.NewGuid(), Location.CreateRandom()).Value;
         await orderRepository.Add(order);
@@ -101,7 +101,7 @@ public class OrderRepositoryShould : BaseRepositoryTest
     {
         var orderRepository = new OrderRepository(DbContext);
         var courierRepository = new CourierRepository(DbContext);
-        var unitOfWork = new UnitOfWork(DbContext);
+        var unitOfWork = new UnitOfWork(DbContext, Mediator);
         
         var courier = Courier.Create("Ivan", "Tesla", 3, Location.CreateRandom()).Value;
         await courierRepository.Add(courier);
@@ -129,7 +129,7 @@ public class OrderRepositoryShould : BaseRepositoryTest
     public async Task Add()
     {
         var orderRepository = new OrderRepository(DbContext);
-        var unitOfWork = new UnitOfWork(DbContext);
+        var unitOfWork = new UnitOfWork(DbContext, Mediator);
         
         var order = Order.Create(Guid.NewGuid(), Location.CreateRandom()).Value;
         await orderRepository.Add(order);
@@ -145,7 +145,7 @@ public class OrderRepositoryShould : BaseRepositoryTest
     {
         var orderRepository = new OrderRepository(DbContext);
         var courierRepository = new CourierRepository(DbContext);
-        var unitOfWork = new UnitOfWork(DbContext);
+        var unitOfWork = new UnitOfWork(DbContext, Mediator);
         
         var courier = Courier.Create("Ivan", "Tesla", 3, Location.CreateRandom()).Value;
         await courierRepository.Add(courier);
