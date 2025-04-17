@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <PackageReference Include="Ardalis.SmartEnum.EFCore" Version="8.2.0" />
+        <PackageReference Include="Ardalis.SmartEnum.JsonNet" Version="8.1.0" />
         <PackageReference Include="Confluent.Kafka" Version="2.8.0" />
         <PackageReference Include="Google.Protobuf" Version="3.29.3" />
         <PackageReference Include="Grpc.AspNetCore" Version="2.67.0" />
@@ -44,6 +45,10 @@
     <ItemGroup>
         <Protobuf Include="Adapters\Grpc\GeoService\Contract.proto" />
         <Protobuf Include="Adapters\Kafka\OrderStatusChanged\Contract.proto" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Adapters\Postgres\BackgroundJobs\" />
     </ItemGroup>
 
 </Project>

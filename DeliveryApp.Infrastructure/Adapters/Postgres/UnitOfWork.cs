@@ -1,40 +1,55 @@
-using System.Collections.Immutable;
-using MediatR;
+using Ardalis.SmartEnum.JsonNet;
+using DeliveryApp.Infrastructure.Adapters.Postgres.Entities;
+using Newtonsoft.Json;
 using Primitives;
+using DomainOrderStatus = DeliveryApp.Core.Domain.Model.OrderAggregate.OrderStatus;
 
 namespace DeliveryApp.Infrastructure.Adapters.Postgres;
 
-public class UnitOfWork(AppDbContext dbContext, IMediator mediator) : IUnitOfWork, IDisposable
+public class UnitOfWork(AppDbContext dbContext) : IUnitOfWork, IDisposable
 {
     private bool _disposed;
     
     public async Task<bool> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
+        await SaveDomainEventsInOutboxMessagesAsync(cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
-        await RaiseDomainEventAsync(cancellationToken);
         
         return true;
     }
-
-    private async Task RaiseDomainEventAsync(CancellationToken cancellationToken)
+    
+    private async Task SaveDomainEventsInOutboxMessagesAsync(CancellationToken cancellationToken)
     {
-        var domainEntities = dbContext.ChangeTracker
+        var outboxMessages = dbContext.ChangeTracker
             .Entries<IAggregateRoot>()
-            .Where(x => x.Entity.GetDomainEvents().Count != 0)
-            .ToImmutableArray();
+            .Select(x => x.Entity)
+            .SelectMany(aggregate =>
+                {
+                    var domainEvents = aggregate.GetDomainEvents();
+                    aggregate.ClearDomainEvents();
+                    return domainEvents;
+                }
+            )
+            .Select(domainEvent => new OutboxMessage
+            {
+                Id = domainEvent.EventId,
+                OccurredOnUtc = DateTime.UtcNow,
+                Type = domainEvent.GetType().Name,
+                Content = JsonConvert.SerializeObject(
+                    domainEvent,
+                    new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.All,
+                        Converters = new List<JsonConverter>
+                        {
+                            new SmartEnumNameConverter<DomainOrderStatus, int>()
+                        }
+                    })
 
-        var domainEvents = domainEntities
-            .SelectMany(x => x.Entity.GetDomainEvents())
-            .ToImmutableArray();
-
-        domainEntities
-            .ToList()
-            .ForEach(entity => entity.Entity.ClearDomainEvents());
-
-        foreach (var domainEvent in domainEvents)
-        {
-            await mediator.Publish(domainEvent, cancellationToken);
-        }
+            })
+            .ToList();
+        
+        await dbContext.Set<OutboxMessage>().AddRangeAsync(outboxMessages, cancellationToken);
     }
     
     public void Dispose()

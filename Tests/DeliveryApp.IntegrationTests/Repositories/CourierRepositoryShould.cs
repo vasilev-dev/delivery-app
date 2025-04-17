@@ -24,7 +24,7 @@ public class CourierRepositoryShould : BaseRepositoryTest
     public async Task ReturnCourierWhenItExists()
     {
         var courierRepository = new CourierRepository(DbContext);
-        var unitOfWork = new UnitOfWork(DbContext, Mediator);
+        var unitOfWork = new UnitOfWork(DbContext);
         
         var courier = Courier.Create("Ivan", "Tesla", 3, Location.CreateRandom()).Value;
         
@@ -40,7 +40,7 @@ public class CourierRepositoryShould : BaseRepositoryTest
     public async Task ReturnEmptyCollectionWhenNoAnyFreeCouriers()
     {
         var courierRepository = new CourierRepository(DbContext);
-        var unitOfWork = new UnitOfWork(DbContext, Mediator);
+        var unitOfWork = new UnitOfWork(DbContext);
         
         var courier = Courier.Create("Ivan", "Tesla", 3, Location.CreateRandom()).Value;
         courier.SetBusy();
@@ -57,7 +57,7 @@ public class CourierRepositoryShould : BaseRepositoryTest
     public async Task ReturnFreeCouriersWhenItExists()
     {
         var courierRepository = new CourierRepository(DbContext);
-        var unitOfWork = new UnitOfWork(DbContext, Mediator);
+        var unitOfWork = new UnitOfWork(DbContext);
         
         var courier = Courier.Create("Ivan", "Tesla", 3, Location.CreateRandom()).Value;
         
@@ -74,7 +74,7 @@ public class CourierRepositoryShould : BaseRepositoryTest
     public async Task AddCourier()
     {
         var courierRepository = new CourierRepository(DbContext);
-        var unitOfWork = new UnitOfWork(DbContext, Mediator);
+        var unitOfWork = new UnitOfWork(DbContext);
         
         var courier = Courier.Create("Ivan", "Tesla", 3, Location.CreateRandom()).Value;
         
@@ -90,7 +90,7 @@ public class CourierRepositoryShould : BaseRepositoryTest
     public async Task UpdateCourier()
     {
         var courierRepository = new CourierRepository(DbContext);
-        var unitOfWork = new UnitOfWork(DbContext, Mediator);
+        var unitOfWork = new UnitOfWork(DbContext);
         
         var courier = Courier.Create("Ivan", "Tesla", 3, Location.CreateRandom()).Value;
         
